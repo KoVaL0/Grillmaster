@@ -9,6 +9,10 @@ Rect.prototype.same_size_as = function (other) {
   return this.w === other.w && this.h === other.h;
 };
 
+Rect.prototype.fits_in = function(outer){
+  return outer.w >= this.w && outer.h >= this.h;
+}
+
 function Node() {
   this.rect = null;
   this.filled = false;
@@ -35,6 +39,9 @@ Node.prototype.insert_rect = function (rect, prevRect) {
   };
 
   if (this.filled) return null;
+
+  if(!rect.fits_in(this.rect))
+    return null;
 
   if (rect.same_size_as(this.rect)) {
     this.filled = true;

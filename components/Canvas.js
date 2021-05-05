@@ -12,10 +12,10 @@ const Canvas = ({grillItems}) => {
         <title>background</title>
         <rect fill="#F4F4F4" id="canvas_background" height={height} width={width} y="-1" x="-1"/>
       </g>
-      {grillItems.map((item, id) => {
-        return <g key={id}>
+      {grillItems.map((item) => {
+        return <g key={item.id}>
           <title>{item.title}</title>
-          <rect id={id} stroke="#000" height={item.height} width={item.width} y={item.y} x={item.x} fill="#729C62" rx="0.3em"/>
+          <rect stroke="#000" height={item.height} width={item.width} y={item.y} x={item.x} fill="#729C62" rx="0.3em"/>
         </g>
       })}
     </svg>

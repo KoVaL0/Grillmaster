@@ -25,7 +25,9 @@ const TableOutItems = ({outItems}) => {
               })
             ) : (
               <tr>
-                Empty
+                <th>
+                  Empty
+                </th>
               </tr>
             )
           }
