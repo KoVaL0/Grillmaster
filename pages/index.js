@@ -22,9 +22,7 @@ export default function Home() {
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(data),
-    }).then((res) => {
-      return res.json();
-    }).then(({Bag, outBag}) => {
+    }).then((res) => res.json()).then(({ Bag, outBag }) => {
       setGrillItems(Bag);
       setOutItems(outBag);
     });
@@ -32,18 +30,18 @@ export default function Home() {
 
   return (
     <div className="container">
-      <Header title={'Grillmaster'}/>
-      <div className='row px-3'>
-        <div className='col'>
-          <div className='d-flex mb-3 justify-content-center'>
-            <Canvas grillItems={grillItems}/>
+      <Header title="Grillmaster" />
+      <div className="row px-3">
+        <div className="col">
+          <div className="d-flex mb-3 justify-content-center">
+            <Canvas grillItems={grillItems} />
           </div>
           <div>
-            <InputForm handlerSubmit={handlerSubmit} data={data} setData={setData}/>
+            <InputForm handlerSubmit={handlerSubmit} data={data} setData={setData} />
           </div>
         </div>
-        <div className='col-3'>
-          <TableOutItems outItems={outItems}/>
+        <div className="col-3">
+          <TableOutItems outItems={outItems} />
         </div>
       </div>
     </div>

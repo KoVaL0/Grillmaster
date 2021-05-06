@@ -1,14 +1,15 @@
-import '../index.css'
+import React from 'react';
+import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import { useStore } from '../redux/store';
+import useStore from '../redux/store';
 
 export default function MyApp({ Component, pageProps }) {
-  const store = useStore(pageProps.initialReduxState)
+  const store = useStore(pageProps.initialReduxState);
 
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <Component pageProps={pageProps} />
     </Provider>
-    )
+  );
 }

@@ -9,6 +9,10 @@ Rect.prototype.same_size_as = function (other) {
   return this.w === other.w && this.h === other.h;
 };
 
+Rect.prototype.fits_in = function (outer) {
+  return outer.w >= this.w && outer.h >= this.h;
+};
+
 function Node() {
   this.rect = null;
   this.filled = false;
@@ -18,78 +22,81 @@ function Node() {
 }
 
 Node.prototype.insert_rect = function (rect, prevRect) {
-
+  let newRect = new Rect(0, 0, rect.w, rect.h);
   const findSpace = () => {
-    if (this.rect.w - this.x >= rect.w) {
-      rect.x = this.x;
-      rect.y = this.y;
-      this.x = rect.x + rect.w;
-    } else if (this.rect.h - this.y - this.maxY >= rect.h) {
+    if (this.rect.w - this.x >= newRect.w) {
+      newRect.x = this.x;
+      newRect.y = this.y;
+      this.x += newRect.w;
+    } else if (this.rect.h - this.y - this.maxY >= newRect.h) {
       this.y += this.maxY;
-      rect.y = this.y;
-      rect.x = 0;
-      this.x = rect.w;
-      rect.width_diff = this.rect.w;
+      newRect.y = this.y;
+      newRect.x = 0;
+      this.x = newRect.w;
+      newRect.width_diff = this.rect.w;
       this.maxY = 0;
-    } else rect = null;
+    } else newRect = null;
   };
 
   if (this.filled) return null;
 
-  if (rect.same_size_as(this.rect)) {
+  if (!newRect.fits_in(this.rect)) { return null; }
+
+  if (newRect.same_size_as(this.rect)) {
     this.filled = true;
     return this;
   }
 
-  if (rect.h > this.maxY) {
-    this.maxY = rect.h;
+  if (newRect.h > this.maxY) {
+    this.maxY = newRect.h;
   }
 
   if (prevRect) {
     findSpace();
   } else if (this.x !== 0 && this.y !== 0) {
-    rect.x = this.x;
-    rect.y = this.y;
+    newRect.x = this.x;
+    newRect.y = this.y;
     findSpace();
   } else {
-    this.x = rect.w;
-    return rect;
+    this.x = newRect.w;
+    return newRect;
   }
 
-  return rect;
+  return newRect;
 };
 
 export default function placingItems(req, res) {
-  const grill = JSON.parse(req.body).grill;
+  const { grill } = JSON.parse(req.body);
   const items = [];
   const Bag = [];
   const outBag = [];
   let node;
 
   // creating list grill all items
-  grill.grillItems.map((item) => {
-    for (let i = 0; i < item.count; i++) {
+  grill.grillItems.forEach((item) => {
+    for (let i = 0; i < item.count; i += 1) {
       items.push(item);
     }
   });
 
   items.sort((prev, next) => next.height - prev.height);
 
-  const start_node = new Node();
-  start_node.rect = new Rect(0, 0, grill.width, grill.height);
+  const startNode = new Node();
+  startNode.rect = new Rect(0, 0, grill.width, grill.height);
 
   items.forEach((item, id) => {
-    item.id = id;
     const rect = new Rect(0, 0, item.width, item.height);
-    node = start_node.insert_rect(rect, node);
+    node = startNode.insert_rect(rect, node);
     if (node) {
-      Bag.push({...item, x: node.x, y: node.y});
+      Bag.push({
+        ...item, x: node.x, y: node.y, id,
+      });
     } else if (!node) {
-      outBag.push(item);
+      outBag.push({ ...item, id });
     }
   });
-  res.json({Bag, outBag});
-};
+  res.json({ Bag, outBag });
+}
 
 // function findItem(grill, weight) {
 //   const item = grill.grillItems.filter((item) => weight === item.width * item.height);
@@ -125,5 +132,3 @@ export default function placingItems(req, res) {
 //   res.statusCode = 200;
 //   // res.json({Bag, outBag});
 // }
-
-
