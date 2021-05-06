@@ -9,9 +9,15 @@ Rect.prototype.same_size_as = function (other) {
   return this.w === other.w && this.h === other.h;
 };
 
+<<<<<<< HEAD
 Rect.prototype.fits_in = function (outer) {
   return outer.w >= this.w && outer.h >= this.h;
 };
+=======
+Rect.prototype.fits_in = function(outer){
+  return outer.w >= this.w && outer.h >= this.h;
+}
+>>>>>>> c6167281f87c38b82fc43d0b146773e82d1ea1ad
 
 function Node() {
   this.rect = null;
@@ -40,9 +46,16 @@ Node.prototype.insert_rect = function (rect, prevRect) {
 
   if (this.filled) return null;
 
+<<<<<<< HEAD
   if (!newRect.fits_in(this.rect)) { return null; }
 
   if (newRect.same_size_as(this.rect)) {
+=======
+  if(!rect.fits_in(this.rect))
+    return null;
+
+  if (rect.same_size_as(this.rect)) {
+>>>>>>> c6167281f87c38b82fc43d0b146773e82d1ea1ad
     this.filled = true;
     return this;
   }

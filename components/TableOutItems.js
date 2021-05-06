@@ -15,6 +15,7 @@ const TableOutItems = ({ outItems }) => (
         </thead>
         <tbody>
           {
+<<<<<<< HEAD
           outItems.length > 0 ? (
             outItems.map((item) => (
               <tr key={item.id}>
@@ -22,6 +23,20 @@ const TableOutItems = ({ outItems }) => (
                 <td>
                   {`${item.width} x ${item.height}`}
                 </td>
+=======
+            outItems.length > 0 ? (
+              outItems.map((item, index) => {
+                return <tr key={index}>
+                  <td>{item.title}</td>
+                  <td>{item.width} x {item.height}</td>
+                </tr>;
+              })
+            ) : (
+              <tr>
+                <th>
+                  Empty
+                </th>
+>>>>>>> c6167281f87c38b82fc43d0b146773e82d1ea1ad
               </tr>
             ))
           ) : (
