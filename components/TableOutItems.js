@@ -15,7 +15,7 @@ const TableOutItems = ({ outItems }) => (
         </thead>
         <tbody>
           {
-          outItems.length > 0 ? (
+          outItems ? (
             outItems.map((item) => (
               <tr key={item.id}>
                 <td>{item.title}</td>
