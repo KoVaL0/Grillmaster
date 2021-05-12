@@ -2,7 +2,8 @@ import React from 'react';
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import useStore from '../redux/store';
+import useStore from '@redux/store';
+import '../i18n';
 
 export default function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);

@@ -8,11 +8,13 @@ import Header from '@components/Header';
 import { placingItems, setNewData } from '@redux/actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
   const [data, setData] = useState(JSON.stringify(sampleDate, null, 2));
   const dispatch = useDispatch();
   const state = useSelector((store) => store.data);
+  const { t } = useTranslation();
 
   function handlerSubmit(e) {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <Header title="Grillmaster" />
+      <Header title={t('Header title')} />
       <div className="row px-3">
         <div className="col">
           <div className="d-flex mb-3 justify-content-center">
@@ -46,7 +48,6 @@ export default function Home() {
         autoClose={2000}
         hideProgressBar={false}
         closeOnClick
-        draggable
       />
     </div>
   );

@@ -1,9 +1,7 @@
 import { createActions } from 'redux-actions';
 import { toast } from 'react-toastify';
 
-export const {
-  setNewData, itemsIsLoading, addCalcResult, setError,
-} = createActions({
+export const { setNewData, itemsIsLoading, addCalcResult } = createActions({
   SET_NEW_DATA: (data) => data,
   ITEMS_IS_LOADING: (bool) => bool,
   ADD_CALC_RESULT: (data) => ({ ...data }),
@@ -22,7 +20,7 @@ export const placingItems = (url, payload) => async (dispatch) => {
     const data = await res.json();
     dispatch(addCalcResult(data));
     dispatch(itemsIsLoading(false));
-    toast.success('Success!');
+    toast.success(('Success!'));
   } catch (e) {
     toast.error('Error fetch');
   }
