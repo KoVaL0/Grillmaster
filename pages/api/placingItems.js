@@ -97,38 +97,3 @@ export default function placingItems(req, res) {
   });
   res.json({ Bag, outBag });
 }
-
-// function findItem(grill, weight) {
-//   const item = grill.grillItems.filter((item) => weight === item.width * item.height);
-//   return item[0];
-// }
-//
-// function placingItems(req, res) {
-//   const grill = JSON.parse(req.body).grill;
-//   const Bag = [];
-//   const outBag = [];
-//   const weight = [];
-//   const C = grill.width * grill.height;
-//   const N = grill.grillItems.reduce((count, grillItem) => count + grillItem.count, 0);
-//   const W = [];
-//   grill.grillItems.map(grillItem => {
-//     const weight = grillItem.height * grillItem.width;
-//     for (let i = 0; i < grillItem.count; i++) {
-//       W.push(weight);
-//     }
-//   });
-//   W.sort((a, b) => b - a);
-//   for (let i = 0; i < N; i++) {
-//     const sum = weight.reduce((sum, item) => sum + item, 0);
-//     if (sum < C) {
-//       if (sum + W[i] <= C) {
-//         weight.push(W[i]);
-//         Bag.push(findItem(grill, W[i]));
-//         continue;
-//       }
-//     }
-//     outBag.push(findItem(grill, W[i]));
-//   }
-//   res.statusCode = 200;
-//   // res.json({Bag, outBag});
-// }

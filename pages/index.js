@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import sampleDate from '../public/sample-data.json';
-import { placingItems, setNewData } from '../redux/actions';
-import Canvas from '../components/Canvas';
-import TableOutItems from '../components/TableOutItems';
-import InputForm from '../components/InputForm';
-import Header from '../components/Header';
+import sampleDate from '@public/sample-data.json';
+import Canvas from '@components/Canvas';
+import TableOutItems from '@components/TableOutItems';
+import InputForm from '@components/InputForm';
+import Header from '@components/Header';
+import { placingItems, setNewData } from '@redux/actions';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const [data, setData] = useState(JSON.stringify(sampleDate, null, 2));
@@ -39,6 +41,13 @@ export default function Home() {
           <TableOutItems outItems={state.outBag} />
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        draggable
+      />
     </div>
   );
 }

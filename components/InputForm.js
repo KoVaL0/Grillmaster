@@ -12,7 +12,6 @@ const InputForm = ({
         onChange={(e) => setData(e.target.value)}
       />
     </div>
-    {console.log(loading)}
     <input
       disabled={loading}
       type="submit"
