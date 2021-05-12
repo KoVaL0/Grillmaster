@@ -1,8 +1,8 @@
 import { createActions } from 'redux-actions';
 
 export const { setNewData, itemsIsLoading, addCalcResult } = createActions({
-  SET_NEW_DATA: (data) => ({ ...data }),
-  ITEMS_IS_LOADING: (bool) => ({ bool }),
+  SET_NEW_DATA: (data) => data,
+  ITEMS_IS_LOADING: (bool) => bool,
   ADD_CALC_RESULT: (Bag, outBag) => ({ Bag, outBag }),
 });
 
