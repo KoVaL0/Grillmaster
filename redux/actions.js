@@ -20,8 +20,9 @@ export const placingItems = (url, payload) => async (dispatch) => {
     const data = await res.json();
     dispatch(addCalcResult(data));
     dispatch(itemsIsLoading(false));
-    toast.success(('Success!'));
+    toast.success((`Success! ${data.date}ms`));
   } catch (e) {
     toast.error('Error fetch');
+    dispatch(itemsIsLoading(false));
   }
 };

@@ -1,4 +1,5 @@
-import Rect from '../../helper/index';
+import Rect from '@helper/index';
+import Timer from '@helper/timer';
 
 class Node {
   constructor() {
@@ -44,7 +45,7 @@ class Node {
 
     if (prevRect) {
       findSpace();
-    } else if (this.x !== 0 && this.y !== 0) {
+    } else if (this.x !== 0 || this.y !== 0) {
       newRect.x = this.x;
       newRect.y = this.y;
       findSpace();
@@ -57,12 +58,13 @@ class Node {
   }
 }
 
-export default function placingItems(req, res) {
+export default function placingItemsMethod1(req, res) {
   const { grill } = JSON.parse(req.body);
   const items = [];
   const Bag = [];
   const outBag = [];
   let node;
+  const date = new Timer();
   grill.grillItems.forEach((item) => {
     for (let i = 0; i < item.count; i += 1) {
       items.push(item);
@@ -85,5 +87,5 @@ export default function placingItems(req, res) {
       outBag.push({ ...item, id });
     }
   });
-  res.json({ Bag, outBag });
+  res.json({ Bag, outBag, date: date.finishTimer() });
 }

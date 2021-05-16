@@ -1,12 +1,17 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { placingItems, setNewData } from '@redux/actions';
+import { useDispatch } from 'react-redux';
+import ButtonSubmit from '@components/ButtonSubmit';
 
-const InputForm = ({
-  handlerSubmit, data, setData, loading,
-}) => {
-  const { t } = useTranslation();
+const InputForm = ({ data, setData, loading }) => {
+  const dispatch = useDispatch();
+  function handlerButton(e, method) {
+    e.preventDefault();
+    dispatch(setNewData(JSON.parse(data)));
+    dispatch(placingItems(`/api/placingItemsMethod${method}`, data));
+  }
   return (
-    <form onSubmit={(e) => handlerSubmit(e)}>
+    <form>
       <div className="form-group">
         <textarea
           className="form-control"
@@ -15,12 +20,10 @@ const InputForm = ({
           onChange={(e) => setData(e.target.value)}
         />
       </div>
-      <input
-        disabled={loading}
-        type="submit"
-        className="btn btn-success"
-        value={loading ? t('Button loading') : t('Button submit')}
-      />
+      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={1} />
+      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={2} />
+      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={3} />
+      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={4} />
     </form>
   );
 };
