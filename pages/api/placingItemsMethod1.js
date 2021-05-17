@@ -1,5 +1,6 @@
 import Rect from '@helper/index';
 import Timer from '@helper/timer';
+import OutBagSort from '@helper/outBagSort';
 
 class Node {
   constructor() {
@@ -62,7 +63,7 @@ export default function placingItemsMethod1(req, res) {
   const { grill } = JSON.parse(req.body);
   const items = [];
   const Bag = [];
-  const outBag = [];
+  const out = [];
   let node;
   const date = new Timer();
   grill.grillItems.forEach((item) => {
@@ -84,8 +85,9 @@ export default function placingItemsMethod1(req, res) {
         ...item, x: node.x, y: node.y, id,
       });
     } else if (!node) {
-      outBag.push({ ...item, id });
+      out.push({ ...item, id });
     }
   });
+  const outBag = new OutBagSort(out).findUniqElem();
   res.json({ Bag, outBag, date: date.finishTimer() });
 }

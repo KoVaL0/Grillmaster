@@ -15,7 +15,7 @@ const Canvas = ({ grillItems }) => {
       {grillItems ? grillItems.map((item) => (
         <g key={item.id}>
           <title>{item.title}</title>
-          <rect stroke="#000" height={item.height} width={item.width} y={item.y} x={item.x} fill="#729C62" rx="0.3em" />
+          <rect stroke="#000" height={item.height} width={item.width} y={item.y} x={item.x} fill={item.color} rx="0.3em" />
         </g>
       )) : null}
     </svg>

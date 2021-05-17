@@ -1,5 +1,6 @@
 import Timer from '@helper/timer';
 import Rect from '@helper/index';
+import OutBagSort from '@helper/outBagSort';
 
 class Node {
   constructor() {
@@ -110,5 +111,6 @@ export default function placingItems(req, res) {
   const startNode = new Node();
   startNode.rect = new Rect(0, 0, grill.width, grill.height);
   const data = startNode.insertRect(items);
-  res.json({ Bag: data.Bag, outBag: data.outBag, date: date.finishTimer() });
+  const outBag = new OutBagSort(data.outBag).findUniqElem();
+  res.json({ Bag: data.Bag, outBag, date: date.finishTimer() });
 }

@@ -6,21 +6,25 @@
       "width": 50,
       "height": 30,
       "count": 15,
+      "color": "#f1e0b1",
       "title": "Steak"
     }, {
       "width": 140,
       "height": 140,
       "count": 2,
+      "color": "#908373",
       "title": "Sausage"
     }, {
       "width": 130,
       "height": 60,
       "count": 4,
+      "color": "#eab67a",
       "title": "Tomato"
     }, {
       "width": 20,
       "height": 10,
       "count": 37,
+      "color": "#ece8e3",
       "title": "Veal"
     }]
   }

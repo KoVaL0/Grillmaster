@@ -16,7 +16,7 @@ const ButtonSelectLang = ({ show, setShow }) => {
   };
 
   return (
-    <div className="btn-group p-2" role="group">
+    <div className="btn-group h-50 my-auto" role="group">
       <button
         id="btnGroupDrop1"
         type="button"

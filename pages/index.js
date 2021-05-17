@@ -30,7 +30,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-4">
           <TableOutItems outItems={state.outBag} />
         </div>
       </div>

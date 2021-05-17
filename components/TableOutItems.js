@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import TableRow from '@components/TableRow';
 
 const TableOutItems = ({ outItems }) => {
   const { t } = useTranslation();
@@ -14,19 +15,14 @@ const TableOutItems = ({ outItems }) => {
             <tr>
               <th scope="col">{t('Type item')}</th>
               <th scope="col">{t('Size item')}</th>
+              <th scope="col">{t('Color item')}</th>
+              <th scope="col">{t('Count item')}</th>
             </tr>
           </thead>
           <tbody>
             {
             outItems ? (
-              outItems.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.title}</td>
-                  <td>
-                    {`${item.width} x ${item.height}`}
-                  </td>
-                </tr>
-              ))
+              <TableRow outItems={outItems} />
             ) : (
               <tr>
                 <th>
