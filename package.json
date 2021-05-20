@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p "
+    "start": "next start -p -p $PORT"
   },
   "dependencies": {
     "bootstrap": "^4.6.0",
