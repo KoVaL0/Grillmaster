@@ -8,7 +8,7 @@ const InputForm = ({ data, setData, loading }) => {
   function handlerButton(e, method) {
     e.preventDefault();
     dispatch(setNewData(JSON.parse(data)));
-    dispatch(placingItems(`/api/placingItemsMethod${method}`, data));
+    dispatch(placingItems(`/api/placingItems${method}`, data));
   }
   return (
     <form>
@@ -20,10 +20,8 @@ const InputForm = ({ data, setData, loading }) => {
           onChange={(e) => setData(e.target.value)}
         />
       </div>
-      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={1} />
-      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={2} />
-      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={3} />
-      <ButtonSubmit loading={loading} handlerButton={handlerButton} method={4} />
+      <ButtonSubmit loading={loading} handlerButton={handlerButton} method="RecursiveMethod" />
+      <ButtonSubmit loading={loading} handlerButton={handlerButton} method="BestMethod" />
     </form>
   );
 };

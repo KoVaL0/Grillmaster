@@ -15,6 +15,10 @@ const resources = {
       'Count item': 'Count',
       'Empty item': 'Empty',
       'Toast success': 'Success!',
+      'Info information': 'Information',
+      'Info number of elements': 'Number of elements',
+      'Info number of items placed': 'Number of items placed',
+      'Info number of discarded items': 'Number of discarded items',
     },
   },
   ru: {
@@ -30,6 +34,10 @@ const resources = {
       'Count item': 'Количество',
       'Empty item': 'Пусто',
       'Toast success': 'Успех!',
+      'Info information': 'Информация',
+      'Info number of elements': 'Количество элементов',
+      'Info number of items placed': 'Количество помещенных элементов',
+      'Info number of discarded items': 'Количество выкинутых элементов',
     },
   },
 };

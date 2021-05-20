@@ -33,6 +33,7 @@
     "import/resolver": {
       "alias": {
         "map": [
+          ["@", "./"],
           ["@components", "./components"],
           ["@public", "./public"],
           ["@redux", "./redux"],
@@ -59,6 +60,13 @@
       }
     ],
     "react/display-name": 1,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "sort-imports": ["error", {
+      "ignoreCase": false,
+      "ignoreDeclarationSort": true,
+      "ignoreMemberSort": false,
+      "memberSyntaxSortOrder": ["single", "none", "all", "multiple"],
+      "allowSeparatedGroups": false
+    }]
   }
 }

@@ -8,6 +8,7 @@ import Header from '@components/Header';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
+import InfoBlock from '@components/InfoBlock';
 
 export default function Home() {
   const [data, setData] = useState(JSON.stringify(sampleDate, null, 2));
@@ -32,6 +33,7 @@ export default function Home() {
         </div>
         <div className="col-4">
           <TableOutItems outItems={state.outBag} />
+          { state?.Bag ? <InfoBlock state={state} /> : null }
         </div>
       </div>
       <ToastContainer
