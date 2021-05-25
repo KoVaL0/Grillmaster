@@ -2,9 +2,9 @@ import { createActions } from 'redux-actions';
 import { toast } from 'react-toastify';
 
 export const {
-  setNewData, setInfo, itemsIsLoading, addCalcResult,
+  setNewStore, setInfo, itemsIsLoading, addCalcResult,
 } = createActions({
-  SET_NEW_DATA: (data) => data,
+  SET_NEW_STORE: (data) => data,
   SET_INFO: (data) => data,
   ITEMS_IS_LOADING: (bool) => bool,
   ADD_CALC_RESULT: (data) => ({ ...data }),

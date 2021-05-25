@@ -5,12 +5,14 @@ const resources = {
   en: {
     translation: {
       'Header title': 'GrillMaster',
+      'Language english': 'English',
+      'Language russian': 'Русский',
       'Button language': 'Lang',
-      'Button submit': 'Submit',
-      'Button loading': 'loading...',
+      'Button submit': 'Submit {{method}}',
       'Items out': 'Items out of grill',
       'Type item': 'Type',
       'Size item': 'Size',
+      'Size params': '{{width}} x {{height}}',
       'Color item': 'Color',
       'Count item': 'Count',
       'Empty item': 'Empty',
@@ -24,12 +26,14 @@ const resources = {
   ru: {
     translation: {
       'Header title': 'МастерГриль',
+      'Language english': 'English',
+      'Language russian': 'Русский',
       'Button language': 'Язык',
-      'Button submit': 'Отправить',
-      'Button loading': 'Загрузка...',
+      'Button submit': 'Отправить {{method}}',
       'Items out': 'Предметы не в гриле',
       'Type item': 'Тип',
       'Size item': 'Размер',
+      'Size params': '{{width}} x {{height}}',
       'Color item': 'Цвет',
       'Count item': 'Количество',
       'Empty item': 'Пусто',
@@ -47,12 +51,7 @@ i18n
   .init({
     resources,
     lng: 'en',
-
     keySeparator: false,
-
-    interpolation: {
-      escapeValue: false,
-    },
   });
 
 export default i18n;

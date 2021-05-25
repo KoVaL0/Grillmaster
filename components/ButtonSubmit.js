@@ -1,15 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const ButtonSubmit = ({ loading, handlerButton, method }) => {
+const ButtonSubmit = ({ loading, handleButton, method }) => {
   const { t } = useTranslation();
   return (
     <input
       type="submit"
       disabled={loading}
-      onClick={(e) => handlerButton(e, method)}
+      onClick={(e) => handleButton(e)(method)}
       className="btn btn-success mr-3"
-      value={loading ? t('Button loading') : `${t('Button submit')} ${method}`}
+      value={t('Button submit', { method })}
     />
   );
 };

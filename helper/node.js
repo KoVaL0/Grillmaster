@@ -9,7 +9,7 @@ export default class Node {
     this.lastY = 0;
     this.back = false;
     this.prevBlock = {};
-    this.res = [];
+    this.result = [];
   }
 
   initGrill(grill) {
@@ -24,51 +24,61 @@ export default class Node {
   }
 
   uniquenessCheck = (item) => {
-    const id = this.res.map((i) => i.id);
-    if (id.includes(item.id)) { return false; }
+    const id = this.result.map((i) => i.id);
+    if (id.includes(item.id)) {
+      return false;
+    }
     return true;
   };
 
   insertRectRecursiveMethod(arrayItems) {
-    const arr = arrayItems.map((item, id) => ({ ...item, id }));
-    if (this.filled) return null;
+    const arr = arrayItems.map((item, id) => ({ ...item, id, fill: item.color }));
+    if (this.filled) {
+      return;
+    }
     const pushItemToRes = (item) => {
-      this.res.push({ ...item, x: this.x, y: this.y });
+      this.result.push({ ...item, x: this.x, y: this.y });
       this.x += item.width;
     };
 
-    const rec = () => {
+    const placementCycle = () => {
       arr.forEach((item) => {
-        if (item.width + this.x > this.rect.w) return null;
-        if (item.height + this.y > this.rect.h) return null;
+        if (item.width + this.x > this.rect.w) {
+          return;
+        }
+        if (item.height + this.y > this.rect.h) {
+          return;
+        }
         if (this.uniquenessCheck(item)) {
           if (this.maxY < item.height) {
             this.maxY = item.height;
           }
           pushItemToRes(item);
         }
-        return null;
       });
       arr.forEach((item) => {
-        if (item.height + this.y + this.maxY > this.rect.h) return null;
+        if (item.height + this.y + this.maxY > this.rect.h) {
+          return;
+        }
         if (this.uniquenessCheck(item)) {
           this.x = 0;
-          if (item.width + this.x > this.rect.w) return null;
+          if (item.width + this.x > this.rect.w) {
+            return;
+          }
           this.y += this.maxY;
           this.maxY = item.height;
           pushItemToRes(item);
-          rec();
+          placementCycle();
         }
-        return null;
       });
       const outBag = arr.filter((item) => this.uniquenessCheck(item));
-      return { Bag: this.res, outBag };
+      return { bag: this.result, outBag };
     };
-    return rec();
+    return placementCycle();
   }
 
   insertRectBestMethod(arrayItems) {
-    const arr = arrayItems.map((item, id) => ({ ...item, id }));
+    const arr = arrayItems.map((item, id) => ({ ...item, id, fill: item.color }));
 
     const checkHeightPrevBlock = (item) => {
       if (this.prevBlock.height === item.height) {
@@ -88,12 +98,14 @@ export default class Node {
     };
 
     const pushItemToRes = (item) => {
-      this.res.push({ ...item, x: this.lastX, y: this.lastY });
+      this.result.push({ ...item, x: this.lastX, y: this.lastY });
     };
 
-    const iterableItems = (rec) => {
+    const iterableItems = () => {
       arr.forEach((item, index) => {
-        if (item.height + this.lastY > this.rect.h) return;
+        if (item.height + this.lastY > this.rect.h) {
+          return;
+        }
         if (item.width + this.lastX <= this.rect.w) {
           if (!this.back) {
             if (!this.uniquenessCheck(item)) return;
@@ -118,7 +130,7 @@ export default class Node {
               this.prevBlock = item;
             }
             this.back = false;
-            rec();
+            iterableItems();
           } else if (this.lastY === this.y[this.y.length - 1]) {
             stepBack();
           }
@@ -130,12 +142,12 @@ export default class Node {
       });
     };
 
-    const rec = () => {
-      iterableItems(rec);
-      iterableItems(rec);
+    const placementCycle = () => {
+      iterableItems();
+      iterableItems();
       const outBag = arr.filter((item) => this.uniquenessCheck(item));
-      return { Bag: this.res, outBag };
+      return { bag: this.result, outBag };
     };
-    return rec();
+    return placementCycle();
   }
 }

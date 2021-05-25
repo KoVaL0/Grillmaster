@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
-import ButtonSelectLang from '@components/ButtonSelectLang';
+import React from 'react';
 
-const Header = ({ title }) => {
-  const [show, setShow] = useState(false);
+import MenuSelectLang from '@components/MenuSelectLang';
 
-  return (
-    <header className="bg-light d-flex justify-content-between mb-2">
-      <p className="p-2">
-        {title}
-      </p>
-      <ButtonSelectLang show={show} setShow={setShow} />
-    </header>
-  );
-};
+const Header = ({ title }) => (
+  <header className="bg-light d-flex justify-content-between mb-2">
+    <p className="p-2">
+      {title}
+    </p>
+    <MenuSelectLang />
+  </header>
+);
 
 export default Header;

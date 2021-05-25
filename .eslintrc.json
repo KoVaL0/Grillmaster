@@ -50,6 +50,8 @@
   ],
   "rules": {
     "react/react-in-jsx-scope": 1,
+    "react/jsx-props-no-spreading": 0,
+    "jsx-a11y/no-autofocus": 0,
     "react/jsx-filename-extension": [
       1,
       {
