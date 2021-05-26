@@ -8,6 +8,8 @@ const TableOutItems = () => {
   const state = useSelector((store) => store.data);
   const { t } = useTranslation();
 
+  const isShow = state.outBag.length !== 0;
+
   return (
     <div className="border rounded">
       <p className="bg-light p-2 m-0">
@@ -25,15 +27,15 @@ const TableOutItems = () => {
           </thead>
           <tbody>
             {
-            state.outBag ? (
-              <TableRow />
-            ) : (
-              <tr>
-                <th>
-                  {t('Empty item')}
-                </th>
-              </tr>
-            )
+              isShow ? (
+                <TableRow />
+              ) : (
+                <tr>
+                  <th>
+                    {t('Empty item')}
+                  </th>
+                </tr>
+              )
           }
           </tbody>
         </table>

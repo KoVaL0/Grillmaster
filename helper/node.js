@@ -25,17 +25,17 @@ export default class Node {
 
   uniquenessCheck = (item) => {
     const id = this.result.map((i) => i.id);
+
     if (id.includes(item.id)) {
       return false;
     }
+
     return true;
   };
 
   insertRectRecursiveMethod(arrayItems) {
     const arr = arrayItems.map((item, id) => ({ ...item, id, fill: item.color }));
-    if (this.filled) {
-      return;
-    }
+
     const pushItemToRes = (item) => {
       this.result.push({ ...item, x: this.x, y: this.y });
       this.x += item.width;
@@ -46,9 +46,11 @@ export default class Node {
         if (item.width + this.x > this.rect.w) {
           return;
         }
+
         if (item.height + this.y > this.rect.h) {
           return;
         }
+
         if (this.uniquenessCheck(item)) {
           if (this.maxY < item.height) {
             this.maxY = item.height;
@@ -56,10 +58,12 @@ export default class Node {
           pushItemToRes(item);
         }
       });
+
       arr.forEach((item) => {
         if (item.height + this.y + this.maxY > this.rect.h) {
           return;
         }
+
         if (this.uniquenessCheck(item)) {
           this.x = 0;
           if (item.width + this.x > this.rect.w) {
@@ -72,6 +76,7 @@ export default class Node {
         }
       });
       const outBag = arr.filter((item) => this.uniquenessCheck(item));
+
       return { bag: this.result, outBag };
     };
     return placementCycle();
@@ -106,18 +111,23 @@ export default class Node {
         if (item.height + this.lastY > this.rect.h) {
           return;
         }
+
         if (item.width + this.lastX <= this.rect.w) {
           if (!this.back) {
             if (!this.uniquenessCheck(item)) return;
+
             if (this.lastY + item.height <= this.y[this.y.length - 1]) {
               pushItemToRes(item);
               checkHeightPrevBlock(item);
+
               if (this.prevBlock.height !== item.height) {
                 this.y.push(item.height + this.lastY);
               }
+
               this.prevBlock = item;
             } else if (this.y[this.y.length - 1] === 0) {
               pushItemToRes(item);
+
               if (this.prevBlock.height !== item.height) {
                 this.y.push(item.height + this.lastY);
               }
@@ -129,6 +139,7 @@ export default class Node {
               checkHeightPrevBlock(item);
               this.prevBlock = item;
             }
+
             this.back = false;
             iterableItems();
           } else if (this.lastY === this.y[this.y.length - 1]) {
@@ -146,6 +157,7 @@ export default class Node {
       iterableItems();
       iterableItems();
       const outBag = arr.filter((item) => this.uniquenessCheck(item));
+
       return { bag: this.result, outBag };
     };
     return placementCycle();

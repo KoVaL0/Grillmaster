@@ -20,13 +20,11 @@ export default function Home() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  function handleButton(e) {
+  const handleButton = (method) => (e) => {
     e.preventDefault();
-    return function (method) {
-      dispatch(setNewStore(JSON.parse(data)));
-      dispatch(placingItems(`/api/placingItems?method=${method}`, data));
-    };
-  }
+    dispatch(setNewStore(JSON.parse(data)));
+    dispatch(placingItems(`/api/placingItems?method=${method}`, data));
+  };
 
   return (
     <div className="container">
@@ -47,7 +45,7 @@ export default function Home() {
         </div>
         <div className="col-4">
           <TableOutItems />
-          { state?.bag ? <InfoBlock /> : null }
+          <InfoBlock />
         </div>
       </div>
       <ToastContainer

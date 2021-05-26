@@ -6,6 +6,7 @@ export default class OutBagSort {
 
   findUniqElem() {
     const title = [];
+
     this.data.forEach((item) => {
       if (!title.includes(item.title)) {
         this.result.push({ ...item, count: 1 });
@@ -15,6 +16,7 @@ export default class OutBagSort {
         this.result[id].count += 1;
       }
     });
+
     return this.result;
   }
 }
