@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { createActions } from 'redux-actions';
 import { toast } from 'react-toastify';
+import i18next from 'i18next';
 
 export const {
-  setNewStore, setInfo, itemsIsLoading, addCalcResult,
+  setNewStore, setInfo, itemsIsLoading, addGrillItem,
 } = createActions({
   SET_NEW_STORE: (grill) => ({ grill }),
-  SET_INFO: (info) => ({ info }),
+  SET_INFO: (informationOfGrillItems) => ({ informationOfGrillItems }),
   ITEMS_IS_LOADING: (isLoading) => ({ isLoading }),
-  ADD_CALC_RESULT: ({ bag, outBag }) => ({ bag, outBag }),
+  ADD_GRILL_ITEM: ({ bag, outBag }) => ({ bag, outBag }),
 });
 
 export const placingItems = (url, payload) => async (dispatch) => {
@@ -19,12 +20,12 @@ export const placingItems = (url, payload) => async (dispatch) => {
 
     const countOutBag = data.outBag.reduce((sum, item) => sum + item.count, 0);
 
-    dispatch(addCalcResult(data));
+    dispatch(addGrillItem(data));
     dispatch(setInfo({ countOutBag }));
 
-    toast.success((`Success! ${data.date}ms`));
+    toast.success(i18next.t('common.toast.submit.success', { date: data.date }));
   } catch (e) {
-    toast.error('Error fetch');
+    toast.error(i18next.t(e.response.data.message));
   } finally {
     dispatch(itemsIsLoading(false));
   }

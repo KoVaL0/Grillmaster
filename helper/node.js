@@ -24,9 +24,10 @@ export default class Node {
   }
 
   uniquenessCheck = (item) => {
-    const id = this.result.map((i) => i.id);
+    const id = new Set();
+    this.result.forEach((i) => id.add(i.id));
 
-    if (id.includes(item.id)) {
+    if (id.has(item.id)) {
       return false;
     }
 
@@ -34,15 +35,15 @@ export default class Node {
   };
 
   insertRectRecursiveMethod(arrayItems) {
-    const arr = arrayItems.map((item, id) => ({ ...item, id, fill: item.color }));
+    const iterableArray = arrayItems.map((item, id) => ({ ...item, id, fill: item.color }));
 
-    const pushItemToRes = (item) => {
+    const addItemToResultingArray = (item) => {
       this.result.push({ ...item, x: this.x, y: this.y });
       this.x += item.width;
     };
 
     const placementCycle = () => {
-      arr.forEach((item) => {
+      iterableArray.forEach((item) => {
         if (item.width + this.x > this.rect.w) {
           return;
         }
@@ -55,11 +56,11 @@ export default class Node {
           if (this.maxY < item.height) {
             this.maxY = item.height;
           }
-          pushItemToRes(item);
+          addItemToResultingArray(item);
         }
       });
 
-      arr.forEach((item) => {
+      iterableArray.forEach((item) => {
         if (item.height + this.y + this.maxY > this.rect.h) {
           return;
         }
@@ -71,11 +72,11 @@ export default class Node {
           }
           this.y += this.maxY;
           this.maxY = item.height;
-          pushItemToRes(item);
+          addItemToResultingArray(item);
           placementCycle();
         }
       });
-      const outBag = arr.filter((item) => this.uniquenessCheck(item));
+      const outBag = iterableArray.filter((item) => this.uniquenessCheck(item));
 
       return { bag: this.result, outBag };
     };
@@ -83,7 +84,7 @@ export default class Node {
   }
 
   insertRectBestMethod(arrayItems) {
-    const arr = arrayItems.map((item, id) => ({ ...item, id, fill: item.color }));
+    const iterableArray = arrayItems.map((item, id) => ({ ...item, id, fill: item.color }));
 
     const checkHeightPrevBlock = (item) => {
       if (this.prevBlock.height === item.height) {
@@ -102,12 +103,12 @@ export default class Node {
       this.x.pop();
     };
 
-    const pushItemToRes = (item) => {
+    const addItemToResultingArray = (item) => {
       this.result.push({ ...item, x: this.lastX, y: this.lastY });
     };
 
     const iterableItems = () => {
-      arr.forEach((item, index) => {
+      iterableArray.forEach((item, index) => {
         if (item.height + this.lastY > this.rect.h) {
           return;
         }
@@ -117,7 +118,7 @@ export default class Node {
             if (!this.uniquenessCheck(item)) return;
 
             if (this.lastY + item.height <= this.y[this.y.length - 1]) {
-              pushItemToRes(item);
+              addItemToResultingArray(item);
               checkHeightPrevBlock(item);
 
               if (this.prevBlock.height !== item.height) {
@@ -126,7 +127,7 @@ export default class Node {
 
               this.prevBlock = item;
             } else if (this.y[this.y.length - 1] === 0) {
-              pushItemToRes(item);
+              addItemToResultingArray(item);
 
               if (this.prevBlock.height !== item.height) {
                 this.y.push(item.height + this.lastY);
@@ -135,7 +136,7 @@ export default class Node {
             }
           } else if (item.height + this.lastY <= this.y[this.y.length - 1]) {
             if (this.uniquenessCheck(item)) {
-              pushItemToRes(item);
+              addItemToResultingArray(item);
               checkHeightPrevBlock(item);
               this.prevBlock = item;
             }
@@ -145,7 +146,7 @@ export default class Node {
           } else if (this.lastY === this.y[this.y.length - 1]) {
             stepBack();
           }
-        } else if (arr.length - 1 === index) {
+        } else if (iterableArray.length - 1 === index) {
           stepBack();
           this.back = true;
           this.prevBlock = {};
@@ -156,7 +157,7 @@ export default class Node {
     const placementCycle = () => {
       iterableItems();
       iterableItems();
-      const outBag = arr.filter((item) => this.uniquenessCheck(item));
+      const outBag = iterableArray.filter((item) => this.uniquenessCheck(item));
 
       return { bag: this.result, outBag };
     };

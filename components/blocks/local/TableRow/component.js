@@ -11,7 +11,7 @@ const TableRow = () => {
       <tr key={item.id}>
         <td>{item.title}</td>
         <td>
-          { t('Size params', { ...item }) }
+          { t('common.table.item.size', { ...item }) }
         </td>
         <td>{item.color}</td>
         <td>{item.count}</td>

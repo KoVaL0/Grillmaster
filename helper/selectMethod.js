@@ -1,26 +1,31 @@
-import Node from '@helper/node';
-import OutBagSort from '@helper/outBagSort';
+import { RECURSIVE_METHOD } from '@/constants';
+import Node from '@/helper/node';
+import countNumberOfIdenticalItems from '@/helper/countNumberOfIdenticalItems';
 
-export const selectMethod = (method, grill) => {
-  let startNode;
-  let data;
+const selectMethod = (method, grill) => {
+  const getStartNode = () => {
+    if (method === RECURSIVE_METHOD) {
+      return new Node(0, 0);
+    }
+    return new Node([grill.height], [0]);
+  };
 
-  if (method === 'RecursiveMethod') {
-    startNode = new Node(0, 0);
-  } else {
-    startNode = new Node([grill.height], [0]);
-  }
-
+  const startNode = getStartNode();
   const items = startNode.initGrill(grill);
+
   startNode.rect = { w: grill.width, h: grill.height };
 
-  if (method === 'RecursiveMethod') {
-    data = startNode.insertRectRecursiveMethod(items);
-  } else {
-    data = startNode.insertRectBestMethod(items);
-  }
+  const getDataAfterCalculation = () => {
+    if (method === RECURSIVE_METHOD) {
+      return startNode.insertRectRecursiveMethod(items);
+    }
+    return startNode.insertRectBestMethod(items);
+  };
 
-  const outBag = new OutBagSort(data.outBag).findUniqElem();
+  const data = getDataAfterCalculation();
+  const outBag = countNumberOfIdenticalItems(data.outBag);
 
   return { data, outBag };
 };
+
+export default selectMethod;

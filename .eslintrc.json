@@ -33,11 +33,7 @@
     "import/resolver": {
       "alias": {
         "map": [
-          ["@", "./"],
-          ["@components", "./components"],
-          ["@public", "./public"],
-          ["@redux", "./redux"],
-          ["@helper", "./helper"]
+          ["@", "./"]
         ],
         "extensions": [".js", ".jsx", ".json"]
       }

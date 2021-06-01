@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const InfoBlock = () => {
   const { t } = useTranslation();
-  const { bag, info } = useSelector((store) => store.data);
+  const { bag, informationOfGrillItems } = useSelector((store) => store.data);
 
   if (bag.length === 0) {
     return null;
@@ -13,19 +13,19 @@ const InfoBlock = () => {
   return (
     <ul className="list-group mt-5">
       <li className="list-group-item d-flex justify-content-center align-items-center">
-        {t('Info information')}
+        {t('common.infoblock.title')}
       </li>
       <li className="list-group-item d-flex justify-content-between align-items-center">
-        {t('Info number of elements')}
-        <span className="badge bg-info rounded-pill">{ bag.length + info.countOutBag || 0 }</span>
+        {t('common.infoblock.item.count')}
+        <span className="badge bg-info rounded-pill">{ bag.length + informationOfGrillItems.countOutBag || 0 }</span>
       </li>
       <li className="list-group-item d-flex justify-content-between align-items-center">
-        {t('Info number of items placed')}
+        {t('common.infoblock.item.placed')}
         <span className="badge bg-info rounded-pill">{ bag.length || 0 }</span>
       </li>
       <li className="list-group-item d-flex justify-content-between align-items-center">
-        {t('Info number of discarded items')}
-        <span className="badge bg-info rounded-pill">{ info.countOutBag || 0 }</span>
+        {t('common.infoblock.item.discarded')}
+        <span className="badge bg-info rounded-pill">{ informationOfGrillItems.countOutBag || 0 }</span>
       </li>
     </ul>
   );

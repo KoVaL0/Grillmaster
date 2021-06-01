@@ -3,14 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import classNames from 'classnames';
 
-const MenuSelectLang = () => {
-  const [onShow, setShow] = useState(false);
+const LanguageSelector = () => {
+  const [isShow, setShow] = useState(false);
   const { t, i18n } = useTranslation();
 
   const toggleSelectLang = useCallback((lang) => {
     if (i18n.language !== lang) {
       i18n.changeLanguage(lang).then(() => {
-        toast.success(t('Toast success'));
+        toast.success(t('common.toast.language.success'));
+      }).catch(() => {
+        toast.error(t('common.toast.language.error'));
       });
     }
   }, [t, i18n]);
@@ -24,11 +26,11 @@ const MenuSelectLang = () => {
   };
 
   const btnClass = classNames('btn', 'btn-sm', 'btn-info', 'dropdown-toggle', {
-    show: onShow,
+    show: isShow,
   });
 
   const ulDropdownClass = classNames('dropdown-menu', {
-    show: onShow,
+    show: isShow,
   });
 
   return (
@@ -41,11 +43,11 @@ const MenuSelectLang = () => {
         type="button"
         className={btnClass}
         data-bs-toggle="dropdown"
-        aria-expanded={onShow}
+        aria-expanded={isShow}
         onBlur={handleBlur}
         onClick={handleClickMenu}
       >
-        { t('Button language') }
+        { t('common.button.language') }
       </button>
       <ul
         className={ulDropdownClass}
@@ -57,7 +59,7 @@ const MenuSelectLang = () => {
             className="dropdown-item"
             onMouseDown={() => toggleSelectLang('en')}
           >
-            { t('Language english') }
+            { t('common.language.english') }
           </button>
         </li>
         <li>
@@ -66,7 +68,7 @@ const MenuSelectLang = () => {
             className="dropdown-item"
             onMouseDown={() => toggleSelectLang('ru')}
           >
-            { t('Language russian') }
+            { t('common.language.russian') }
           </button>
         </li>
       </ul>
@@ -74,4 +76,4 @@ const MenuSelectLang = () => {
   );
 };
 
-export default MenuSelectLang;
+export default LanguageSelector;

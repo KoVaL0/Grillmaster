@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const Canvas = () => {
+const SvgCanvas = () => {
   const state = useSelector((store) => store.data);
   const { width, height } = state.grill;
 
@@ -23,4 +23,4 @@ const Canvas = () => {
   );
 };
 
-export default Canvas;
+export default SvgCanvas;

@@ -1,5 +1,5 @@
-import { selectMethod } from '@helper/selectMethod';
-import Timer from '@helper/timer';
+import selectMethod from '@/helper/selectMethod';
+import Timer from '@/helper/timer';
 
 export default function placingItems(req, res) {
   try {
@@ -8,10 +8,10 @@ export default function placingItems(req, res) {
     const date = new Timer();
     const { data, outBag } = selectMethod(method, grill);
 
-    res.json({ bag: data.bag, outBag, date: date.finishTimer() });
+    res.json({ bag: data.bag, outBag, date: date.stopTimer() });
   } catch (e) {
     res.status(500).json({
-      status: 'error',
+      message: 'common.toast.submit.error',
     });
   }
 }
