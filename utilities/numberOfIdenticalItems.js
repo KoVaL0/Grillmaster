@@ -1,4 +1,4 @@
-const countNumberOfIdenticalItems = (data) => {
+const numberOfIdenticalItems = (data) => {
   const title = new Set();
   const result = [];
 
@@ -15,4 +15,4 @@ const countNumberOfIdenticalItems = (data) => {
   return result;
 };
 
-export default countNumberOfIdenticalItems;
+export default numberOfIdenticalItems;

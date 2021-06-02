@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const SvgCanvas = () => {
+const PlacementBoundary = () => {
   const state = useSelector((store) => store.data);
   const { width, height } = state.grill;
 
@@ -23,4 +23,4 @@ const SvgCanvas = () => {
   );
 };
 
-export default SvgCanvas;
+export default PlacementBoundary;

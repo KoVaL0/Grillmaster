@@ -1,8 +1,8 @@
 export default class Node {
-  constructor(y, x) {
+  constructor() {
     this.rect = null;
-    this.y = y;
-    this.x = x;
+    this.y = 0;
+    this.x = 0;
     this.maxY = 0;
     this.items = [];
     this.lastX = 0;
@@ -12,7 +12,13 @@ export default class Node {
     this.result = [];
   }
 
-  initGrill(grill) {
+  initBestMethod(grill) {
+    this.y = [grill.height];
+    this.x = [0];
+    return this.init(grill);
+  }
+
+  init(grill) {
     grill.grillItems.forEach((item) => {
       for (let i = 0; i < item.count; i += 1) {
         this.items.push(item);
@@ -23,7 +29,7 @@ export default class Node {
     return this.items;
   }
 
-  uniquenessCheck = (item) => {
+  checkForUniqueness = (item) => {
     const id = new Set();
     this.result.forEach((i) => id.add(i.id));
 
@@ -52,7 +58,7 @@ export default class Node {
           return;
         }
 
-        if (this.uniquenessCheck(item)) {
+        if (this.checkForUniqueness(item)) {
           if (this.maxY < item.height) {
             this.maxY = item.height;
           }
@@ -65,7 +71,7 @@ export default class Node {
           return;
         }
 
-        if (this.uniquenessCheck(item)) {
+        if (this.checkForUniqueness(item)) {
           this.x = 0;
           if (item.width + this.x > this.rect.w) {
             return;
@@ -76,7 +82,7 @@ export default class Node {
           placementCycle();
         }
       });
-      const outBag = iterableArray.filter((item) => this.uniquenessCheck(item));
+      const outBag = iterableArray.filter((item) => this.checkForUniqueness(item));
 
       return { bag: this.result, outBag };
     };
@@ -115,7 +121,7 @@ export default class Node {
 
         if (item.width + this.lastX <= this.rect.w) {
           if (!this.back) {
-            if (!this.uniquenessCheck(item)) return;
+            if (!this.checkForUniqueness(item)) return;
 
             if (this.lastY + item.height <= this.y[this.y.length - 1]) {
               addItemToResultingArray(item);
@@ -135,7 +141,7 @@ export default class Node {
               this.prevBlock = item;
             }
           } else if (item.height + this.lastY <= this.y[this.y.length - 1]) {
-            if (this.uniquenessCheck(item)) {
+            if (this.checkForUniqueness(item)) {
               addItemToResultingArray(item);
               checkHeightPrevBlock(item);
               this.prevBlock = item;
@@ -157,7 +163,7 @@ export default class Node {
     const placementCycle = () => {
       iterableItems();
       iterableItems();
-      const outBag = iterableArray.filter((item) => this.uniquenessCheck(item));
+      const outBag = iterableArray.filter((item) => this.checkForUniqueness(item));
 
       return { bag: this.result, outBag };
     };

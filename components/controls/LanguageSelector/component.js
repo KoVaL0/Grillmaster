@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import classNames from 'classnames';
 
 const LanguageSelector = () => {
-  const [isShow, setShow] = useState(false);
+  const [isShowDropdownMenu, setShowDropdownMenu] = useState(false);
   const { t, i18n } = useTranslation();
 
   const toggleSelectLang = useCallback((lang) => {
@@ -17,20 +17,24 @@ const LanguageSelector = () => {
     }
   }, [t, i18n]);
 
+  const handleClickSelectLang = (lang) => () => {
+    toggleSelectLang(lang);
+  };
+
   const handleClickMenu = () => {
-    setShow((prevState) => !prevState);
+    setShowDropdownMenu((prevState) => !prevState);
   };
 
   const handleBlur = () => {
-    setShow(false);
+    setShowDropdownMenu(false);
   };
 
   const btnClass = classNames('btn', 'btn-sm', 'btn-info', 'dropdown-toggle', {
-    show: isShow,
+    show: isShowDropdownMenu,
   });
 
   const ulDropdownClass = classNames('dropdown-menu', {
-    show: isShow,
+    show: isShowDropdownMenu,
   });
 
   return (
@@ -43,7 +47,7 @@ const LanguageSelector = () => {
         type="button"
         className={btnClass}
         data-bs-toggle="dropdown"
-        aria-expanded={isShow}
+        aria-expanded={isShowDropdownMenu}
         onBlur={handleBlur}
         onClick={handleClickMenu}
       >
@@ -57,7 +61,7 @@ const LanguageSelector = () => {
           <button
             type="button"
             className="dropdown-item"
-            onMouseDown={() => toggleSelectLang('en')}
+            onMouseDown={handleClickSelectLang('en')}
           >
             { t('common.language.english') }
           </button>
@@ -66,7 +70,7 @@ const LanguageSelector = () => {
           <button
             type="button"
             className="dropdown-item"
-            onMouseDown={() => toggleSelectLang('ru')}
+            onMouseDown={handleClickSelectLang('ru')}
           >
             { t('common.language.russian') }
           </button>

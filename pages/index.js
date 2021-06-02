@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 
-import SvgCanvas from '@/components/blocks/local/SvgCanvas';
+import PlacementBoundary from '@/components/blocks/local/PlacementBoundary';
 import OutOfGrillItems from '@/components/blocks/local/OutOfGrillItems';
 import InputForm from '@/components/controls/InputForm';
 import Header from '@/components/blocks/global/Header';
@@ -25,7 +25,7 @@ export default function Home() {
       <div className="row px-3">
         <div className="col">
           <div className="d-flex mb-3 justify-content-center">
-            <SvgCanvas grillItems={state.bag} />
+            <PlacementBoundary grillItems={state.bag} />
           </div>
           <div>
             <InputForm

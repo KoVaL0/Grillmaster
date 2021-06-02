@@ -2,13 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import TableRow from '@/components/blocks/local/TableRow';
+import TableRows from '@/components/blocks/local/TableRows';
 
 const OutOfGrillItems = () => {
   const state = useSelector((store) => store.data);
   const { t } = useTranslation();
 
-  const isShow = state.outBag.length !== 0;
+  const isShowTableRows = state.outBag.length !== 0;
 
   return (
     <div className="border rounded">
@@ -27,8 +27,8 @@ const OutOfGrillItems = () => {
           </thead>
           <tbody>
             {
-              isShow ? (
-                <TableRow />
+              isShowTableRows ? (
+                <TableRows />
               ) : (
                 <tr>
                   <th>

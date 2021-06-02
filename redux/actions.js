@@ -7,7 +7,7 @@ export const {
   setNewStore, setInfo, itemsIsLoading, addGrillItem,
 } = createActions({
   SET_NEW_STORE: (grill) => ({ grill }),
-  SET_INFO: (informationOfGrillItems) => ({ informationOfGrillItems }),
+  SET_INFO: (statisticOutBag) => ({ statisticOutBag }),
   ITEMS_IS_LOADING: (isLoading) => ({ isLoading }),
   ADD_GRILL_ITEM: ({ bag, outBag }) => ({ bag, outBag }),
 });

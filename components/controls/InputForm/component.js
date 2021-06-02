@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import SubmitButton from '@/components/controls/SubmitButton';
-import { placingItems, setNewStore } from '@/redux/actions';
+import { placingItems } from '@/redux/actions';
 import { BEST_METHOD, RECURSIVE_METHOD } from '@/constants';
 
 const InputForm = ({
@@ -13,7 +13,6 @@ const InputForm = ({
   const handleButton = (method) => (e) => {
     e.preventDefault();
     dispatch(placingItems(`/api/placingItems?method=${method}`, data));
-    dispatch(setNewStore(JSON.parse(data)));
   };
 
   return (

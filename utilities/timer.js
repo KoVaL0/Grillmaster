@@ -3,7 +3,7 @@ export default class Timer {
     this.date = new Date();
   }
 
-  stopTimer() {
+  stop() {
     return new Date() - this.date;
   }
 }
