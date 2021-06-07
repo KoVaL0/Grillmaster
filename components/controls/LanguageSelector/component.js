@@ -7,19 +7,16 @@ const LanguageSelector = () => {
   const [isShowDropdownMenu, setShowDropdownMenu] = useState(false);
   const { t, i18n } = useTranslation();
 
-  const toggleSelectLang = useCallback((lang) => {
-    if (i18n.language !== lang) {
-      i18n.changeLanguage(lang).then(() => {
+  const toggleSelectLang = useCallback((e) => {
+    const { language } = e.target.dataset;
+    if (i18n.language !== language) {
+      i18n.changeLanguage(language).then(() => {
         toast.success(t('common.toast.language.success'));
       }).catch(() => {
         toast.error(t('common.toast.language.error'));
       });
     }
   }, [t, i18n]);
-
-  const handleClickSelectLang = (lang) => () => {
-    toggleSelectLang(lang);
-  };
 
   const handleClickMenu = () => {
     setShowDropdownMenu((prevState) => !prevState);
@@ -61,7 +58,8 @@ const LanguageSelector = () => {
           <button
             type="button"
             className="dropdown-item"
-            onMouseDown={handleClickSelectLang('en')}
+            data-language="en"
+            onMouseDown={toggleSelectLang}
           >
             { t('common.language.english') }
           </button>
@@ -70,7 +68,8 @@ const LanguageSelector = () => {
           <button
             type="button"
             className="dropdown-item"
-            onMouseDown={handleClickSelectLang('ru')}
+            data-language="ru"
+            onMouseDown={toggleSelectLang}
           >
             { t('common.language.russian') }
           </button>
